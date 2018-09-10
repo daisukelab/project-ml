@@ -1,5 +1,5 @@
 # project-ml
-Template for general machine learning project
+Template for general machine learning project.
 
 ## Project Setup
 
@@ -8,8 +8,8 @@ Some more project description, preferably define followings:
 
 - Goal, what should be achieved by this project.
 - Resource, what are resources expected to be available to this project.
-- Target users
-- Metrics
+- Target users.
+- Metrics.
 
 ### Strategy
 What are actions to achive goal by using what resources and policies.
@@ -45,4 +45,5 @@ Or make a decision to finish development cycle.
 ## Project Summary
 
 ### Evaluate Total Performance
+Summarize all the results and evaluate system performance.
 
