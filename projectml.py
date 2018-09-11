@@ -9,7 +9,7 @@ class ProjectML:
                  cycle_train_model_fn=None,
                  cycle_evaluate_fn=None,
                  cycle_update_policy_fn=None,
-                 evaluate_total_fn=None,
+                 summarize_total_fn=None,
                  dataset_policy={},
                  training_policy={},
                  parameters={},
@@ -21,7 +21,7 @@ class ProjectML:
         self.cycle_train_model_fn = cycle_train_model_fn
         self.cycle_evaluate_fn = cycle_evaluate_fn
         self.cycle_update_policy_fn = cycle_update_policy_fn
-        self.evaluate_total_fn = evaluate_total_fn
+        self.summarize_total_fn = summarize_total_fn
         self.dataset_policy = EasyDict(dataset_policy)
         self.training_policy = EasyDict(training_policy)
         self.prms = EasyDict(parameters)
@@ -38,7 +38,6 @@ class ProjectML:
         if show_policy:
             print('Dataset policy: {}'.format(self.dataset_policy))
             print('Training policy: {}'.format(self.training_policy))
-            print('Metrics: {}'.format(self.metrics))
             print('Parameters: {}'.format(self.prms))
             print('Variables: {}'.format(self.vars))
     def iterate_cycle(self):
@@ -54,7 +53,9 @@ class ProjectML:
     def summary(self):
         """Summarize overall performance."""
         print('\n# Summary')
-        self._call(evaluate_total_fn)
+        self._call(self.summarize_total_fn)
+    def is_first_cycle(self):
+        return self.vars._cycle == 0
 
-            
+
 
