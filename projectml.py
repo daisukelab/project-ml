@@ -56,12 +56,14 @@ class ProjectML:
         self._call(self.summarize_total_fn)
     def is_first_cycle(self):
         """Return True if it is the first cycle."""
-        return self.vars._cycle == 0
+        return self.cycle() == 0
+    def cycle(self):
+        return self.vars._cycle
     def run(self):
         """Run all through life of this project."""
-        project.setup(show_policy=True)
-        while project.iterate_cycle():
+        self.setup(show_policy=True)
+        while self.iterate_cycle():
             print('finished #{}\n'.format(self.vars._cycle))
-        project.summary()
+        self.summary()
 
 
