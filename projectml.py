@@ -12,9 +12,33 @@ class ProjectML:
                  summarize_total_fn=None,
                  dataset_policy={},
                  training_policy={},
-                 parameters={},
-    ):
+                 parameters={}):
         """Instantiate project."""
+        self.vars = EasyDict()
+        self.results = EasyDict()
+        self.reset(
+              setup_fn,
+              cycle_update_parameter_fn,
+              cycle_setup_data_fn,
+              cycle_train_model_fn,
+              cycle_evaluate_fn,
+              cycle_update_policy_fn,
+              summarize_total_fn,
+              dataset_policy,
+              training_policy,
+              parameters)
+    def reset(self,
+              setup_fn,
+              cycle_update_parameter_fn,
+              cycle_setup_data_fn,
+              cycle_train_model_fn,
+              cycle_evaluate_fn,
+              cycle_update_policy_fn,
+              summarize_total_fn,
+              dataset_policy,
+              training_policy,
+              parameters):
+        """Reset members, except vars and results."""
         self.setup_fn = setup_fn
         self.cycle_update_parameter_fn = cycle_update_parameter_fn
         self.cycle_setup_data_fn = cycle_setup_data_fn
@@ -25,8 +49,6 @@ class ProjectML:
         self.dataset_policy = EasyDict(dataset_policy)
         self.training_policy = EasyDict(training_policy)
         self.prms = EasyDict(parameters)
-        self.vars = EasyDict()
-        self.results = EasyDict()
     def _call(self, fn):
         """Call function if it is valid."""
         if fn is not None:
@@ -39,10 +61,10 @@ class ProjectML:
             print('Dataset policy: {}'.format(self.dataset_policy))
             print('Training policy: {}'.format(self.training_policy))
             print('Parameters: {}'.format(self.prms))
-            print('Variables: {}'.format(self.vars))
+            print('Variables: {} variables'.format(len(self.vars)))
     def iterate_cycle(self):
         """Iterate one project cycle, returns False if finished."""
-        print('\n#{}'.format(self.vars._cycle))
+        print('\n[Cycle #{}]'.format(self.vars._cycle))
         self._call(self.cycle_update_parameter_fn)
         self._call(self.cycle_setup_data_fn)
         self._call(self.cycle_train_model_fn)
@@ -63,7 +85,7 @@ class ProjectML:
         """Run all through life of this project."""
         self.setup(show_policy=True)
         while self.iterate_cycle():
-            print('finished #{}\n'.format(self.vars._cycle))
+            print('Finished cycle #{}.\n'.format(self.vars._cycle))
         self.summary()
 
 
