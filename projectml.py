@@ -62,7 +62,7 @@ class ProjectML:
             print('Training policy: {}'.format(self.training_policy))
             print('Parameters: {}'.format(self.prms))
             print('Variables: {} variables'.format(len(self.vars)))
-    def iterate_cycle(self):
+    def run_cycle(self):
         """Iterate one project cycle, returns False if finished."""
         print('\n[Cycle #{}]'.format(self.vars._cycle))
         self._call(self.cycle_update_parameter_fn)
@@ -70,6 +70,7 @@ class ProjectML:
         self._call(self.cycle_train_model_fn)
         self._call(self.cycle_evaluate_fn)
         cycle_in_progress = self._call(self.cycle_update_policy_fn)
+        print('Finished cycle #{}.\n'.format(self.vars._cycle))
         self.vars._cycle += 1
         return cycle_in_progress
     def summary(self):
@@ -88,7 +89,6 @@ class ProjectML:
         self.summary()
     def iterate(self):
         """Run iteration cycle."""
-        while self.iterate_cycle():
-            print('Finished cycle #{}.\n'.format(self.vars._cycle))
-
+        while self.run_cycle():
+            pass
 
