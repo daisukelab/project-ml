@@ -84,8 +84,11 @@ class ProjectML:
     def run(self):
         """Run all through life of this project."""
         self.setup(show_policy=True)
+        self.iterate()
+        self.summary()
+    def iterate(self):
+        """Run iteration cycle."""
         while self.iterate_cycle():
             print('Finished cycle #{}.\n'.format(self.vars._cycle))
-        self.summary()
 
 
