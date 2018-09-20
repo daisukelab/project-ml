@@ -3,7 +3,7 @@ import tables
 import numpy as np
 
 class BigH5Array():
-    def __init__(self, filename, shape, atom=tables.Float32Atom()):
+    def __init__(self, filename, shape=None, atom=tables.Float32Atom()):
         self.filename = filename
         self.shape = shape
         self.atom = atom
@@ -25,8 +25,8 @@ class BigH5Array():
     def close(self):
         self.f.close()
 
-def big_h5_load(filename, shape):
-    bigfile = BigH5Array(filename, shape)
+def big_h5_load(filename):
+    bigfile = BigH5Array(filename)
     bigfile.open_for_read()
     bigarray = np.array(bigfile())
     bigfile.close()
@@ -54,7 +54,7 @@ if __name__ == '__main__':
             h5array.close()
 
             # read test - real test
-            h5array = BigH5Array('test.h5', shape)
+            h5array = BigH5Array('test.h5')
             h5array.open_for_read()
             for col in range(shape[0]):
                 print('Testing ...[%d]' % col, testdata.shape, testdata[col])
@@ -62,7 +62,7 @@ if __name__ == '__main__':
             h5array.close()
 
             # big_h5_load test
-            x = big_h5_load('test.h5', shape)
+            x = big_h5_load('test.h5')
             for col in range(shape[0]):
                 print('Testing big_h5_load ...[%d]' % col, testdata.shape, testdata[col])
                 self.recursive_test_almost_equal(x[col], testdata[col], 'failed@')
@@ -89,7 +89,7 @@ if __name__ == '__main__':
             writer.close()
 
             # read test - real test
-            reader = BigH5Array('test.h5', (TestBigH5Array.COL_SIZE, TestBigH5Array.ROW_SIZE))
+            reader = BigH5Array('test.h5')
             reader.open_for_read()
             self.test_data = np.array(self.test_data)
             for col in range(TestBigH5Array.COL_SIZE):
