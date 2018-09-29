@@ -28,16 +28,16 @@ class ProjectML:
               training_policy,
               parameters)
     def reset(self,
-              setup_fn,
-              cycle_update_parameter_fn,
-              cycle_setup_data_fn,
-              cycle_train_model_fn,
-              cycle_evaluate_fn,
-              cycle_update_policy_fn,
-              summarize_total_fn,
-              dataset_policy,
-              training_policy,
-              parameters):
+              setup_fn=self.setup_fn,
+              cycle_update_parameter_fn=self.cycle_update_parameter_fn,
+              cycle_setup_data_fn=self.cycle_setup_data_fn,
+              cycle_train_model_fn=self.cycle_train_model_fn,
+              cycle_evaluate_fn=self.cycle_evaluate_fn,
+              cycle_update_policy_fn=self.cycle_update_policy_fn,
+              summarize_total_fn=self.summarize_total_fn,
+              dataset_policy=self.dataset_policy,
+              training_policy=self.training_policy,
+              parameters=self.prms):
         """Reset members, except vars and results."""
         self.setup_fn = setup_fn
         self.cycle_update_parameter_fn = cycle_update_parameter_fn
