@@ -28,27 +28,27 @@ class ProjectML:
               training_policy,
               parameters)
     def reset(self,
-              setup_fn=self.setup_fn,
-              cycle_update_parameter_fn=self.cycle_update_parameter_fn,
-              cycle_setup_data_fn=self.cycle_setup_data_fn,
-              cycle_train_model_fn=self.cycle_train_model_fn,
-              cycle_evaluate_fn=self.cycle_evaluate_fn,
-              cycle_update_policy_fn=self.cycle_update_policy_fn,
-              summarize_total_fn=self.summarize_total_fn,
-              dataset_policy=self.dataset_policy,
-              training_policy=self.training_policy,
-              parameters=self.prms):
+              setup_fn=None,
+              cycle_update_parameter_fn=None,
+              cycle_setup_data_fn=None,
+              cycle_train_model_fn=None,
+              cycle_evaluate_fn=None,
+              cycle_update_policy_fn=None,
+              summarize_total_fn=None,
+              dataset_policy=None,
+              training_policy=None,
+              parameters=None)
         """Reset members, except vars and results."""
-        self.setup_fn = setup_fn
-        self.cycle_update_parameter_fn = cycle_update_parameter_fn
-        self.cycle_setup_data_fn = cycle_setup_data_fn
-        self.cycle_train_model_fn = cycle_train_model_fn
-        self.cycle_evaluate_fn = cycle_evaluate_fn
-        self.cycle_update_policy_fn = cycle_update_policy_fn
-        self.summarize_total_fn = summarize_total_fn
-        self.dataset_policy = EasyDict(dataset_policy)
-        self.training_policy = EasyDict(training_policy)
-        self.prms = EasyDict(parameters)
+        self.setup_fn = setup_fn if setup_fn is not None else self.setup_fn
+        self.cycle_update_parameter_fn = cycle_update_parameter_fn if cycle_update_parameter_fn is not None else self.cycle_update_parameter_fn
+        self.cycle_setup_data_fn = cycle_setup_data_fn if cycle_setup_data_fn is not None else self.cycle_setup_data_fn
+        self.cycle_train_model_fn = cycle_train_model_fn if cycle_train_model_fn is not None else self.cycle_train_model_fn
+        self.cycle_evaluate_fn = cycle_evaluate_fn if cycle_evaluate_fn is not None else self.cycle_evaluate_fn
+        self.cycle_update_policy_fn = cycle_update_policy_fn if cycle_update_policy_fn is not None else self.cycle_update_policy_fn
+        self.summarize_total_fn = summarize_total_fn if summarize_total_fn is not None else self.summarize_total_fn
+        self.dataset_policy = EasyDict(dataset_policy) if dataset_policy is not None else self.dataset_policy
+        self.training_policy = EasyDict(training_policy) if training_policy is not None else self.training_policy
+        self.prms = EasyDict(parameters) if parameters is not None else self.parameters
     def _call(self, fn):
         """Call function if it is valid."""
         if fn is not None:
