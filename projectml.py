@@ -37,7 +37,7 @@ class ProjectML:
               summarize_total_fn=None,
               dataset_policy=None,
               training_policy=None,
-              parameters=None)
+              parameters=None):
         """Reset members, except vars and results."""
         self.setup_fn = setup_fn if setup_fn is not None else self.setup_fn
         self.cycle_update_parameter_fn = cycle_update_parameter_fn if cycle_update_parameter_fn is not None else self.cycle_update_parameter_fn
