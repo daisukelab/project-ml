@@ -48,14 +48,14 @@ class ProjectML:
         self.summarize_total_fn = summarize_total_fn if summarize_total_fn is not None else self.summarize_total_fn
         self.dataset_policy = EasyDict(dataset_policy) if dataset_policy is not None else self.dataset_policy
         self.training_policy = EasyDict(training_policy) if training_policy is not None else self.training_policy
-        self.prms = EasyDict(parameters) if parameters is not None else self.parameters
+        self.prms = EasyDict(parameters) if parameters is not None else self.prms
     def _call(self, fn):
         """Call function if it is valid."""
         if fn is not None:
             return fn(self)
-    def setup(self, show_policy=False):
+    def setup(self, cycle=0, show_policy=False):
         """Setup project. Call once when you start."""
-        self.vars._cycle = 0
+        self.vars._cycle = cycle
         self._call(self.setup_fn)
         if show_policy:
             print('Dataset policy: {}'.format(self.dataset_policy))
@@ -82,9 +82,9 @@ class ProjectML:
         return self.cycle() == 0
     def cycle(self):
         return self.vars._cycle
-    def run(self):
+    def run(self, cycle=0):
         """Run all through life of this project."""
-        self.setup(show_policy=True)
+        self.setup(show_policy=True, cycle)
         self.iterate()
         self.summary()
     def iterate(self):
