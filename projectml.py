@@ -84,7 +84,7 @@ class ProjectML:
         return self.vars._cycle
     def run(self, cycle=0):
         """Run all through life of this project."""
-        self.setup(show_policy=True, cycle)
+        self.setup(show_policy=True, cycle=cycle)
         self.iterate()
         self.summary()
     def iterate(self):
